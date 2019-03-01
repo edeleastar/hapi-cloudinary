@@ -4,9 +4,11 @@
   "main": "index.js",
   "author": "Eamonn de Leastar <edeleastar@wit.ie>",
   "license": "MIT",
-
   "prettier": {
     "singleQuote": true,
     "printWidth": 120
+  },
+  "dependencies": {
+    "hapi": "^18.1.0"
   }
 }
