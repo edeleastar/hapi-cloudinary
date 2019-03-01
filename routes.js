@@ -4,6 +4,8 @@ const Gallery = require('./app/controllers/gallery');
 
 module.exports = [
   { method: 'GET', path: '/', config: Gallery.index },
+  { method: 'POST', path: '/updatecredentials', config: Gallery.updateCredentials },
+  { method: 'POST', path: '/uploadfile', config: Gallery.uploadFile },
   {
     method: 'GET',
     path: '/{param*}',
