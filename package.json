@@ -1,0 +1,12 @@
+{
+  "name": "hapi-cloudinary",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Eamonn de Leastar <edeleastar@wit.ie>",
+  "license": "MIT",
+
+  "prettier": {
+    "singleQuote": true,
+    "printWidth": 120
+  }
+}
