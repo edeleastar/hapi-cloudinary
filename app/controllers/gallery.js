@@ -3,7 +3,7 @@
 const Gallery = {
   index: {
     handler: async function(request, h) {
-      return h.view('gallery', { title: 'List of Pictures' });
+      return h.view('gallery', { title: 'Cloudinary Gallery' });
     }
   }
 };
