@@ -25,7 +25,7 @@ const Gallery = {
       return h.view('gallery', {
         title: 'Cloudinary Gallery',
         cloudinary: this.cloudinaryCredentials,
-        images: result.resources.images
+        images: result.resources
       });
     }
   },
