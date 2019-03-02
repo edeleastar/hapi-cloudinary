@@ -6,6 +6,10 @@ const server = Hapi.server({
   port: process.env.PORT || 3000
 });
 
+server.bind({
+  cloudinaryCredentials: {}
+});
+
 async function init() {
   await server.register(require('inert'));
   await server.register(require('vision'));
