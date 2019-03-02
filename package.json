@@ -9,6 +9,7 @@
     "printWidth": 120
   },
   "dependencies": {
+    "cloudinary": "^1.13.2",
     "handlebars": "^4.1.0",
     "hapi": "^18.1.0",
     "inert": "^5.1.2",
