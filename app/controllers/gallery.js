@@ -4,14 +4,26 @@ const cloudinary = require('cloudinary');
 const fs = require('fs');
 const util = require('util');
 
+const ImageStore = require('../utils/image-store');
+
 const writeFile = util.promisify(fs.writeFile);
 
 const Gallery = {
   index: {
     handler: async function(request, h) {
+      let allImages = [];
+      let errorMessage = '';
+      try {
+        ImageStore.configure(this.cloudinaryCredentials);
+        allImages = await ImageStore.getAllImages();
+      } catch (e) {
+        errorMessage = e;
+      }
       return h.view('gallery', {
         title: 'Cloudinary Gallery',
-        cloudinary: this.cloudinaryCredentials
+        cloudinary: this.cloudinaryCredentials,
+        images: allImages,
+        error: errorMessage
       });
     }
   },
@@ -20,37 +32,26 @@ const Gallery = {
       this.cloudinaryCredentials.cloud_name = request.payload.name;
       this.cloudinaryCredentials.api_key = request.payload.key;
       this.cloudinaryCredentials.api_secret = request.payload.secret;
-
-      cloudinary.config(this.cloudinaryCredentials);
-      const result = await cloudinary.v2.api.resources();
-      return h.view('gallery', {
-        title: 'Cloudinary Gallery',
-        cloudinary: this.cloudinaryCredentials,
-        images: result.resources
-      });
+      return h.redirect('/');
     }
   },
   deleteImage: {
     handler: async function(request, h) {
-      await cloudinary.v2.uploader.destroy(request.params.id, {});
-      const result = await cloudinary.v2.api.resources();
-      return h.view('gallery', {
-        title: 'Cloudinary Gallery',
-        cloudinary: this.cloudinaryCredentials,
-        images: result.resources
-      });
+      ImageStore.deleteImage(request.params.id);
+      return h.redirect('/');
     }
   },
   uploadFile: {
     handler: async function(request, h) {
-      const title = request.payload.title;
-      await writeFile('./public/temp.img', request.payload.imagefile);
-      await cloudinary.uploader.upload('./public/temp.img');
-      const result = await cloudinary.v2.api.resources();
+      const file = request.payload.imagefile;
+      if (Object.keys(file).length > 0) {
+        await ImageStore.uploadImage(request.payload.imagefile);
+        return h.redirect('/');
+      }
       return h.view('gallery', {
         title: 'Cloudinary Gallery',
         cloudinary: this.cloudinaryCredentials,
-        images: result.resources
+        error: 'No file selected'
       });
     }
   }

@@ -6,14 +6,10 @@
       <div class="uk-form-controls">
         <input type="file" class="uk-input" name="imagefile" accept="image/png, image/jpeg">
       </div>
-      <label class="uk-form-label" for="form-horizontal-text">Title</label>
-      <div class="uk-form-controls">
-        <input class="uk-input" id="form-horizontal-text" type="text" name="title"
-               placeholder="Enter image title...">
-      </div>
     </div>
     <p uk-margin>
       <input type="submit" value="Upload" class="uk-button uk-button-default">
+      {{error}}
     </p>
   </form>
 </div>
